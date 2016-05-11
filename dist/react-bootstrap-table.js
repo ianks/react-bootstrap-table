@@ -258,7 +258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      _this.setState({
 	        data: result,
-	        currPage: 1
+	        currPage: _this.props.options.pageStartIndex || _Const2['default'].PAGE_START_INDEX
 	      });
 	    };
 
@@ -353,7 +353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      _this.setState({
-	        currPage: 1
+	        currPage: _this.props.options.pageStartIndex || _Const2['default'].PAGE_START_INDEX
 	      });
 
 	      if (_this.isRemoteDataSource()) {
@@ -425,7 +425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      _this.setState({
-	        currPage: 1
+	        currPage: _this.props.options.pageStartIndex || _Const2['default'].PAGE_START_INDEX
 	      });
 
 	      if (_this.isRemoteDataSource()) {
@@ -522,7 +522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.state = {
 	      data: this.getTableData(),
-	      currPage: this.props.options.page || 1,
+	      currPage: this.props.options.page || this.props.options.pageStartIndex || _Const2['default'].PAGE_START_INDEX,
 	      sizePerPage: this.props.options.sizePerPage || _Const2['default'].SIZE_PER_PAGE_LIST[0],
 	      selectedRowKeys: this.store.getSelectedRowKeys()
 	    };
@@ -635,7 +635,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var selectRow = nextProps.selectRow;
 
 	      this.store.setData(nextProps.data.slice());
-	      var page = options.page || this.state.currPage;
+
+	      var page = undefined;
+	      if (options.page !== 'undefined') {
+	        page = options.page;
+	      } else {
+	        page = this.state.page;
+	      }
 
 	      if (this.isRemoteDataSource()) {
 	        this.setState({
@@ -928,7 +934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _react2['default'].createElement(_paginationPaginationList2['default'], {
 	            ref: 'pagination',
 	            currPage: this.state.currPage,
-	            changePage: this.handlePaginationData.bind(this),
+	            changePage: this.handlePaginationData,
 	            sizePerPage: this.state.sizePerPage,
 	            sizePerPageList: options.sizePerPageList || _Const2['default'].SIZE_PER_PAGE_LIST,
 	            pageStartIndex: options.pageStartIndex,
